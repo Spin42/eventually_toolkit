@@ -4,16 +4,17 @@ module EventuallyToolkit
     def initialize
       @event_bus      = EventBus.new
       @event_handlers = {}
+      @logger         = EventuallyToolkit.logger
     end
 
     def start
       register_handlers
-      puts "#{self.class.name} started for events: #{@event_handlers.keys}"
+      @logger.debug "#{self.class.name} started for events: #{@event_handlers.keys}"
       loop do
         event_hash      = @event_bus.pop(self.class.name.underscore, true)
         event_handlers  = @event_handlers[event_hash["name"]]
         if event_handlers
-          puts "#{self.class.name} process #{event_hash["name"]}."
+          @logger.debug "#{self.class.name} process '#{event_hash["name"]}'."
           event = EventFactory.build_from_projector(event_hash)
           event_handlers.each do | event_handler |
             event_handler.call(event)
