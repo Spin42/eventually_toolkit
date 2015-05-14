@@ -7,7 +7,6 @@ require "eventually_toolkit/event_handler"
 require "eventually_toolkit/event_factory"
 require "eventually_toolkit/projector"
 require "eventually_toolkit/railtie"
-require "eventually_toolkit/event"
 
 module EventuallyToolkit
 

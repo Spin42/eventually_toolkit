@@ -1,3 +1,5 @@
+require "sidekiq"
+
 module EventuallyToolkit
   class DataWorker
     include Sidekiq::Worker
