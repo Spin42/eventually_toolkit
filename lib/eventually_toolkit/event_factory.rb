@@ -10,11 +10,13 @@ module EventuallyToolkit
     end
 
     def self.build(params)
-      event             = Event.new
-      event.source_name = params["source_name"]
-      event.name        = params["name"]
-      event.data        = params["data"]
-      event.created_at  = params["created_at"].to_datetime
+      event = Event.new
+      params.each do | attribute, value |
+        if attribute == "created_at"
+          value = value.to_datetime
+        end
+        event[attribute] = value if event.attributes.include?(attribute)
+      end
       event
     end
   end

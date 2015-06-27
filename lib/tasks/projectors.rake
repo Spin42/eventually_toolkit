@@ -25,8 +25,8 @@ namespace :projectors do
     projector_name = args.projector_name
     pids           = []
 
-    if projector_name == "all"
-      EventuallyToolkit.config.data_workers.each do | _projector_name |
+    if projector_name.nil?
+      EventuallyToolkit.config.projectors.each do | _projector_name |
         pids.push(start(_projector_name))
       end
     else

@@ -23,13 +23,14 @@ module EventuallyToolkit
   end
 
   def self.init
-    @logger = EventuallyToolkit::Logger.new
+    @logger ||= @configuration.logger || EventuallyToolkit::Logger.new
   end
 
   configure do |config|
     config.redis_url    = "redis://localhost:6379/1"
     config.projectors   = []
     config.data_workers = []
+    config.logger       = nil
   end
 end
 

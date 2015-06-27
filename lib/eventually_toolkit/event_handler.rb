@@ -5,15 +5,14 @@ module EventuallyToolkit
       @event_bus = EventBus.new
     end
 
-    def handle_from_eventually_tracker(event_hash)
+    def handle_from_eventually_tracker(event_hash, extras={})
       action_source = event_hash["controller_name"] || event_hash["model_name"]
       _event_hash   = {
         "source_name" => event_hash["application_name"],
         "name"        => "#{action_source} #{event_hash['action_name']}",
         "data"        => event_hash,
         "created_at"  => event_hash["date_time"]
-      }
-      event_handler = EventuallyToolkit::EventHandler.new
+      }.merge(extras)
       handle([_event_hash])
     end
 
