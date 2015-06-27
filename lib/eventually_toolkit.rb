@@ -23,7 +23,7 @@ module EventuallyToolkit
   end
 
   def self.init
-    @logger = @configuration.logger || EventuallyToolkit::Logger.new
+    @logger ||= @configuration.logger || EventuallyToolkit::Logger.new
   end
 
   configure do |config|
