@@ -1,8 +1,9 @@
 module EventuallyToolkit
   class EventHandler
 
-    def initialize
+    def initialize(persist=true)
       @event_bus = EventBus.new
+      @persist   = persist
     end
 
     def handle_from_eventually_tracker(event_hash, extras={})
@@ -18,7 +19,7 @@ module EventuallyToolkit
 
     def handle(event_hashes)
       event_hashes.each do |event_hash|
-        persist_on_event_store(event_hash)
+        persist_on_event_store(event_hash) if @persist
         publish_on_event_bus(event_hash)
       end
     end
